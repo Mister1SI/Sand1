@@ -5,6 +5,15 @@ use std::{fs, process};
 //Layout: S<file_size: u128>I<filename_size: u32>F<filename>D<data>
 
 
+//Print help text
+pub fn help() {
+    let help_text = r#"
+a
+help meu
+    "#;
+    println!("{}", help_text);
+}
+
 pub fn client(addr: String) {
     
     //Attempt to connect to the server
@@ -84,3 +93,9 @@ fn client_read() -> (Result<String, io::Error>, String) {
 
     
 }
+
+pub fn server(addr: String) {
+    
+}
+
+
