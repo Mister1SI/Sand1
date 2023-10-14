@@ -134,6 +134,28 @@ pub fn server(addr: String) {
         
         println!("Filesize: {filesize}\nFilename Size: {filename_size}\nFilename: {filename}");
         
+        let mut buf = String::new();
+        let mut check_write = true;
+        while check_write {
+            println!("FILE DETAILS\nFilename: \"{filename}\"\nFile size: \"{filesize}\"\nSave file?(y/n) ");
+            io::stdout().flush().unwrap();
+            
+            
+            if let Err(e) = io::stdin().read_line(&mut buf) {
+                println!("Error reading from standard input: {}", e);
+                continue;
+            }
+            
+            let cmp = &buf[0..0];
+            
+            if str::eq_ignore_ascii_case(cmp, "y") {
+                check_write = false;
+            } else if str::eq_ignore_ascii_case(cmp, "n") {
+                println!("Cancelling file write");
+                process::exit(0);
+            }
+        }
+        
         let file = fs::OpenOptions::new().write(true).create_new(true).open(filename.as_str());
         
         match file {
